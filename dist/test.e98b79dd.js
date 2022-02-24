@@ -117,79 +117,61 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"C:/Users/gloria05/AppData/Local/Yarn/Data/global/node_modules/parcel/src/builtins/bundle-url.js":[function(require,module,exports) {
-var bundleURL = null;
+})({"test.js":[function(require,module,exports) {
+var string = "\n*{box-sizing: border-box;margin: 0;bottom: 0;}\n*::after{box-sizing: border-box;}\n*::before{box-sizing: border-box;}\nbody{\n    background:#FFE600;\n    min-height:100%;\n}\n.skin{\n    position: relative;\n    background: #FFE600;\n    height: 100vh;\n}\n.triangle{\n    border: 10px solid black;\n    border-color: black transparent transparent;\n    border-bottom: none;\n    width: 0px;\n    height: 0px;\n    position: relative;\n    left: 50%;\n    top: 150px;\n    margin-left: -10px;\n    z-index: 10;\n}\n\n.arc{\n    position:absolute;\n    width: 20px;\n    height: 8px;\n    top: -18px;\n    left: -10px;\n    border-radius: 10px 10px 0 0;\n    background: black;\n}\n.eye {\n    border: 2px solid #000;\n    width: 64px;\n    height: 64px;\n    position: absolute;\n    left: 50%;\n    top: 100px;\n    margin-left: -32px;\n    background: #2E2E2E;\n    border-radius: 50% ;\n}\n.eye::before{\n    content: '';\n    display: block;\n    border: 2px solid #000;\n    width: 28px;\n    height:28px;\n    background: white;\n    border-radius: 50%;\n    position: relative;\n    left: 10px;\n    top:3px;\n}\n.eye.left{\n    transform: translateX(-110px);\n}\n.eye.right{\n    transform: translateX(110px);\n}\n.mouth{\n    z-index: 1;\n    width: 200px;\n    height: 200px;\n    position: absolute;\n    left: 50%;\n    margin-left: -100px;\n    top:180px;\n}\n.mouth .up{\n    position: relative;   \n    z-index: 1;\n}\n.mouth .up .lip{\n    height: 30px;\n    width: 90px;\n    border: 3px solid black;\n    background: #FFE600;\n    position: absolute;\n    left: 50%;\n    margin-left: -45px;\n    border-top: transparent ;\n}\n.mouth .up .lip.left{   \n    border-radius: 0 0 0 30px;    \n    border-right:transparent ;\n    transform: rotate(-20deg) translateX(-50px);\n   \n}\n.mouth .up .lip.right{   \n    border-radius: 0 0 30px 0;\n    border-left: transparent;\n    transform: rotate(20deg) translateX(50px);\n}\n.mouth .down{\n    position: absolute;\n    height: 170px;\n    width: 100%;\n    top: 0;\n    overflow: hidden;\n}\n.mouth .down .yuan1{\n    border: 3px solid black;\n    width: 150px;\n    height: 700px;\n    position: absolute;\n    bottom: 0;\n    left: 50%;\n    margin-left: -75px;\n    border-radius: 75px/300px;\n    background: #9B000A;\n    overflow: hidden;\n}\n.mouth .down .yuan1 .yuan2{\n    width: 150px;\n    height: 270px;\n    position: absolute;\n    bottom: -150px;\n    left: 50%;\n    margin-left: -75px;\n    background: #FF485F;\n    border-radius: 80px/100px;\n    \n}\n.cheek{\n    position: absolute;\n    left: 50%;\n    width: 88px;\n    height:88px;\n    margin-left: -44px;\n    border: 3px solid black;\n    top: 200px;\n    z-index: 5;\n    background: #FF0000;\n}\n.cheek.left{\n    transform: translateX(-200px);\n    border-radius: 50%;\n}\n.cheek.right{\n    transform: translateX(200px);\n    border-radius: 50%;\n}\n";
+demo = document.querySelector('#demo');
+demo2 = document.querySelector('#demo2');
+demo.innerText = string.substring(0, n);
+demo2.innerHTML = string.substring(0, n);
+var n = 1;
+var time = 50;
 
-function getBundleURLCached() {
-  if (!bundleURL) {
-    bundleURL = getBundleURL();
-  }
+var run = function run() {
+  n += 1;
 
-  return bundleURL;
-}
-
-function getBundleURL() {
-  // Attempt to find the URL of the current script and use that as the base URL
-  try {
-    throw new Error();
-  } catch (err) {
-    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
-
-    if (matches) {
-      return getBaseURL(matches[0]);
-    }
-  }
-
-  return '/';
-}
-
-function getBaseURL(url) {
-  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)\/[^/]+$/, '$1') + '/';
-}
-
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-},{}],"C:/Users/gloria05/AppData/Local/Yarn/Data/global/node_modules/parcel/src/builtins/css-loader.js":[function(require,module,exports) {
-var bundle = require('./bundle-url');
-
-function updateLink(link) {
-  var newLink = link.cloneNode();
-
-  newLink.onload = function () {
-    link.remove();
-  };
-
-  newLink.href = link.href.split('?')[0] + '?' + Date.now();
-  link.parentNode.insertBefore(newLink, link.nextSibling);
-}
-
-var cssTimeout = null;
-
-function reloadCSS() {
-  if (cssTimeout) {
+  if (n > string.length) {
+    window.clearInterval(id);
     return;
   }
 
-  cssTimeout = setTimeout(function () {
-    var links = document.querySelectorAll('link[rel="stylesheet"]');
+  demo.innerText = string.substring(0, n);
+  demo2.innerHTML = string.substring(0, n);
+  demo.scrollTop = demo.scrollHeight;
+};
 
-    for (var i = 0; i < links.length; i++) {
-      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
-        updateLink(links[i]);
-      }
-    }
+var doPlay = function doPlay() {
+  return setInterval(run, time);
+};
 
-    cssTimeout = null;
-  }, 50);
-}
+var doPause = function doPause() {
+  window.clearInterval(id);
+};
 
-module.exports = reloadCSS;
-},{"./bundle-url":"C:/Users/gloria05/AppData/Local/Yarn/Data/global/node_modules/parcel/src/builtins/bundle-url.js"}],"style.css":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
+var id = doPlay();
+pause.onclick = doPause;
 
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"_css_loader":"C:/Users/gloria05/AppData/Local/Yarn/Data/global/node_modules/parcel/src/builtins/css-loader.js"}],"C:/Users/gloria05/AppData/Local/Yarn/Data/global/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+play.onclick = function () {
+  id = doPlay();
+};
+
+slow.onclick = function () {
+  doPause();
+  time = 100;
+  id = doPlay();
+};
+
+mid.onclick = function () {
+  doPause();
+  time = 50;
+  id = doPlay();
+};
+
+fast.onclick = function () {
+  doPause();
+  time = 1;
+  id = doPlay();
+};
+},{}],"C:/Users/gloria05/AppData/Local/Yarn/Data/global/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -217,7 +199,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62063" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60981" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -392,5 +374,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["C:/Users/gloria05/AppData/Local/Yarn/Data/global/node_modules/parcel/src/builtins/hmr-runtime.js"], null)
-//# sourceMappingURL=/style.e308ff8e.js.map
+},{}]},{},["C:/Users/gloria05/AppData/Local/Yarn/Data/global/node_modules/parcel/src/builtins/hmr-runtime.js","test.js"], null)
+//# sourceMappingURL=/test.e98b79dd.js.map
